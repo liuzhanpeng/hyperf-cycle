@@ -11,7 +11,7 @@ use Lzpeng\HyperfCycle\Config\DatabaseConfig;
 use Lzpeng\HyperfCycle\Config\MySQLDriverConfig;
 use Cycle\Database\Config\MySQL\TcpConnectionConfig;
 
-$dbal = new DatabaseManager(
+$databaseManager = new DatabaseManager(
     new DatabaseConfig([
         'default' => 'default',
         'databases' => [
