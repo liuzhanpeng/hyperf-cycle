@@ -1,0 +1,30 @@
+{
+    "name": "lzpeng/hyperf-cycle",
+    "description": "Cycle ORM support for hyperf",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Lzpeng\\HyperfCycle\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "liuzhanpeng",
+            "email": "liuzhanpeng@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "cycle/orm": "^2.8",
+        "hyperf/pool": "^3.1"
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.34"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
