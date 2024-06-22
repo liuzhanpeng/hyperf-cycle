@@ -1,6 +1,8 @@
 # hyperf-cycle
 Cycle ORM support for hyperf
 
+使用Hyperf/Pool增加连接池功能
+
 用法与CycleORM基本相同:
 
 ```php
