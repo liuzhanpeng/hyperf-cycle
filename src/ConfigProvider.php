@@ -15,8 +15,8 @@ class ConfigProvider
                 [
                     'id' => 'dabase',
                     'description' => 'The config for database.',
-                    'source' => __DIR__ . '/../publish/database.php',
-                    'destination' => BASE_PATH . '/config/autoload/database.php',
+                    'source' => __DIR__ . '/../publish/databases.php',
+                    'destination' => BASE_PATH . '/config/autoload/databases.php',
                 ]
             ]
         ];
