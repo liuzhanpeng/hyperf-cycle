@@ -16,7 +16,7 @@ return [
         'default' => new MySQLDriverConfig(
             connection: new TcpConnectionConfig(
                 database: env('DB_DATABASE', 'test'),
-                host: env('DB_HOST', 'local'),
+                host: env('DB_HOST', 'localhost'),
                 port: env('DB_PORT', 3306),
                 user: env('DB_USER', 'test'),
                 password: env('DB_PASSWORD', ''),
