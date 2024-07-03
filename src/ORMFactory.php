@@ -72,10 +72,10 @@ class ORMFactory
                     schema: $this->schema,
                     commandGenerator: $this->commandGenerator
                 );
-
-                // 每个Coroutine生成一个独立heap的ORM实例
-                Context::set($key, $this->instance->with(heap: new Heap()));
             }
+
+            // 每个Coroutine生成一个独立heap的ORM实例
+            Context::set($key, $this->instance->with(heap: new Heap()));
         }
 
         return Context::get($key);
@@ -88,6 +88,6 @@ class ORMFactory
      */
     private function getContextKey(): string
     {
-        return sprintf('cycle.orm');
+        return 'cycle.orm';
     }
 }
