@@ -24,55 +24,57 @@ class ORMFactory
     /**
      * 每个进程将缓存一个orm实例，用于创建各个请求协程的EntityManager
      *
-     * @var array<string, ORMInterface>
+     * @var ORMInterface|null
      */
-    private array $caches = [];
+    private ?ORMInterface $instance = null;
 
     /**
      * @param DatabaseManager $databaseManager
      * @param SchemaInterface $schema
+     * @param array|null $defaultSchemaClasses
      * @param CommandGeneratorInterface|null $commandGenerator
      */
     public function __construct(
         private DatabaseManager $databaseManager,
         private SchemaInterface $schema,
-        private ?CommandGeneratorInterface $commandGenerator
+        private ?array $defaultSchemaClasses = null,
+        private ?CommandGeneratorInterface $commandGenerator = null
     ) {
     }
 
     /**
      * 获取EntityManager实例
      *
-     * @param string $name|null
      * @return EntityManagerInterface
      */
-    public function entityManager(?string $name = null): EntityManagerInterface
+    public function entityManager(): EntityManagerInterface
     {
-        return new EntityManager($this->orm($name));
+        return new EntityManager($this->orm());
     }
 
     /**
      * 获取ORM实例
      *
-     * @param string|null $name
      * @return ORMInterface
      */
-    public function orm(?string $name = null): ORMInterface
+    public function orm(): ORMInterface
     {
-        $databaseManager = $this->databaseManager;
-        $name = $databaseManager->config()->getDefaultDatabase();
-
-        $key = $this->getContextKey($name);
+        $key = $this->getContextKey();
         if (!Context::has($key)) {
-            if (!isset($this->caches[$name])) {
-                $this->caches[$name] = new ORM(
-                    factory: new Factory($databaseManager),
+            if (is_null($this->instance)) {
+                $factory = new Factory($this->databaseManager);
+                if (!is_null($this->defaultSchemaClasses)) {
+                    $factory = $factory->withDefaultSchemaClasses($this->defaultSchemaClasses);
+                }
+
+                $this->instance = new ORM(
+                    factory: $factory,
                     schema: $this->schema,
                     commandGenerator: $this->commandGenerator
                 );
 
                 // 每个Coroutine生成一个独立heap的ORM实例
-                Context::set($key, $this->caches[$name]->with(heap: new Heap()));
+                Context::set($key, $this->instance->with(heap: new Heap()));
             }
         }
 
@@ -82,11 +84,10 @@ class ORMFactory
     /**
      * 返回Context Key
      *
-     * @param string $name
      * @return string
      */
-    private function getContextKey(string $name): string
+    private function getContextKey(): string
     {
-        return sprintf('cycle.orm.%s', $name);
+        return sprintf('cycle.orm');
     }
 }
