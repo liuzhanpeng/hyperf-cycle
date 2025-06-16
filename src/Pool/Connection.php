@@ -84,12 +84,11 @@ class Connection extends AbstractConnection
      */
     public function close(): bool
     {
-        $this->database = null;
         if ($this->database instanceof DatabaseInterface) {
             $this->database->getDriver()->disconnect();
         }
 
-        unset($this->database);
+        $this->database = null;
 
         return true;
     }
