@@ -28,7 +28,7 @@ class Connection extends AbstractConnection
     /**
      * @var DatabaseInterface|null
      */
-    protected ?DatabaseInterface $database;
+    protected ?DatabaseInterface $database = null;
 
     /**
      * @var LoggerInterface
