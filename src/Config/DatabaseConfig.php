@@ -127,13 +127,16 @@ final class DatabaseConfig extends InjectableConfig
     }
 
     /**
-     * 返回 driver 的配置
+     * 返回 database 的配置
      *
-     * @param string $driver
+     * @param string $database
      * @return DriverConfig|PoolConfigInterface
      */
-    public function getDriverConfig(string $driver): DriverConfig
+    public function getDriverConfig(string $database): DriverConfig
     {
+        $databasePartial = $this->getDatabase($database);
+        $driver = $databasePartial->getDriver();
+
         if (!isset($this->config['connections'][$driver])) {
             throw new ConfigException("Undefined driver `{$driver}`");
         }
