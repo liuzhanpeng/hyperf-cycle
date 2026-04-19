@@ -1,6 +1,6 @@
 # hyperf-cycle
 
-(Cycle ORM)[https://cycle-orm.dev/] 在 Hyperf 中的连接池支持。
+[Cycle ORM](https://cycle-orm.dev/) 在 Hyperf 中的连接池支持。
 
 该库基于 `hyperf/pool` 为 Cycle ORM 提供协程安全的数据库连接复用能力，同时尽量保持与原生 Cycle ORM 一致的配置和使用方式。
 
@@ -165,6 +165,8 @@ $em = $ormFactory->entityManager();
 错误使用示例：
 
 ```php
+use Cycle\Database\DatabaseInterface;
+use Lzpeng\HyperfCycle\DatabaseManager;
 
 /**
  * 产品数量管理器.
@@ -241,6 +243,7 @@ class PlaceOrderCommand
 正确例子：
 
 ```php
+use Lzpeng\HyperfCycle\DatabaseManager;
 
 /**
  * 产品数量管理器.
