@@ -25,14 +25,14 @@ class ConfigProvider
                     $databaseManager = $container->get(DatabaseManager::class);
                     $config = $container->get(ConfigInterface::class);
                     $schema = new Schema($config->get('orm.schema'));
-                    $defaultSchemaClassess = $config->get('orm.default_schema_classes');
+                    $defaultSchemaClasses = $config->get('orm.default_schema_classes');
 
                     $commandGenerator = new EventDrivenCommandGenerator($schema, $container);
 
                     return new ORMFactory(
                         $databaseManager,
                         $schema,
-                        $defaultSchemaClassess,
+                        $defaultSchemaClasses,
                         $commandGenerator
                     );
                 },

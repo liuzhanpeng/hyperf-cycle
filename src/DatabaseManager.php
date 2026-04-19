@@ -16,7 +16,7 @@ use function Hyperf\Coroutine\defer;
 
 /**
  * 支持连接池的DatabaseManager
- * 
+ *
  * @author lzpeng <liuzhanpeng@gmail.com>
  */
 final class DatabaseManager implements DatabaseProviderInterface

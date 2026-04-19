@@ -19,7 +19,8 @@ class SQLiteDriverConfig extends CycleSQLiteDriverConfig implements PoolConfigIn
         bool $queryCache = true,
         bool $readonlySchema = false,
         bool $readonly = false,
-        private array $options = [],
+        array $options = [],
+        private array $poolOptions = [],
     ) {
         /** @psalm-suppress ArgumentTypeCoercion */
         parent::__construct(
@@ -36,6 +37,6 @@ class SQLiteDriverConfig extends CycleSQLiteDriverConfig implements PoolConfigIn
 
     public function poolOptions(): array
     {
-        return $this->options;
+        return $this->poolOptions;
     }
 }
